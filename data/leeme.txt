@@ -1,2 +1,0 @@
-Coloca tus archvios mp4 ene sta carpeta.
-En la clase main, asigna el nombre del archivo a la variable "fileName" 
