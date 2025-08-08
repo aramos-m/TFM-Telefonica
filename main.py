@@ -1,18 +1,29 @@
+import sys
+import os
 from pathlib import Path
-import audio_to_srt as atos
-from moviepy.editor import VideoFileClip
+from convertir import convertir_mp4_a_wav
+from transcribir import transcribir_audio_a_srt
 
-ruta = './data/'
+def procesar_directorio(directorio):
+    for archivo in Path(directorio).glob("*.mp4"):
+        ruta_wav = convertir_mp4_a_wav(str(archivo))
+        transcribir_audio_a_srt(ruta_wav)
 
-def main():
-    carpeta = Path(ruta)
+def procesar_archivo(ruta_mp4):
+    ruta_wav = convertir_mp4_a_wav(ruta_mp4)
+    transcribir_audio_a_srt(ruta_wav)
 
-    for archivo in carpeta.iterdir():
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Uso: python main.py <archivo_video.mp4> [<archivo2.mp4> ...] o <directorio>")
+        sys.exit(1)
 
-        video = VideoFileClip(str(archivo.absolute()))
-        audio_file = video.audio          
-        audio_file.write_audiofile( "temp.wav" )     
-        print(f"Transcribiendo: {archivo.absolute()}")
-        atos.audio_to_srt("temp.wav")
+    rutas = sys.argv[1:]
 
-main()
+    for ruta in rutas:
+        if os.path.isdir(ruta):
+            procesar_directorio(ruta)
+        elif os.path.isfile(ruta) and ruta.endswith(".mp4"):
+            procesar_archivo(ruta)
+        else:
+            print(f"Se omite '{ruta}': no es un archivo .mp4 válido ni un directorio.")
