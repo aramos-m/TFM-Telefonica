@@ -16,7 +16,7 @@ def transcribir_audio_a_srt(ruta_audio):
         fp16=False, 
         verbose=True,
         condition_on_previous_text=True,
-        temperature=0.2,
+        temperature=0.0,
         best_of=5,
         initial_prompt="este audio menciona la frase hecha en español 'en fin Serafín'"
     )
