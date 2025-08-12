@@ -1,5 +1,5 @@
 import whisper
-from utilidades import formato_srt
+from subtitulacion.utilidades import formato_srt
 
 def transcribir_audio_a_srt(ruta_audio):
     """
@@ -7,7 +7,7 @@ def transcribir_audio_a_srt(ruta_audio):
     """
     # whisper_models = ["tiny", "base", "small", "medium", "large"]
     print("Cargando modelo Whisper...")
-    modelo = whisper.load_model("small")
+    modelo = whisper.load_model("medium")
 
     print("Transcribiendo audio...")
     resultado = modelo.transcribe(
