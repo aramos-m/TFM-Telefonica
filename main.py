@@ -1,7 +1,7 @@
 import sys
 import os
 from pathlib import Path
-from convertir import convertir_mp4_a_wav
+from utilidades import convertir_mp4_a_wav
 from transcribir import transcribir_audio_a_srt
 
 def procesar_directorio(directorio):
