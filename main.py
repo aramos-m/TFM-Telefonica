@@ -1,8 +1,8 @@
 import sys
 import os
 from pathlib import Path
-from utilidades import convertir_mp4_a_wav
-from transcribir import transcribir_audio_a_srt
+from subtitulacion.utilidades import convertir_mp4_a_wav
+from subtitulacion.transcribir import transcribir_audio_a_srt
 
 def procesar_directorio(directorio):
     for archivo in Path(directorio).glob("*.mp4"):
