@@ -1,1 +1,0 @@
-En este directorio se deben añadir los vídeos en formato .mp4 para su procesamiento.
