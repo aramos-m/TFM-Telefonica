@@ -1,3 +1,13 @@
 moviepy
 openai-whisper
 torch==2.2.2 --index-url https://download.pytorch.org/whl/cpu
+torchaudio==2.2.2 
+opencv-python
+numpy<2
+pandas
+tqdm
+insightface
+scikit-learn
+mediapipe
+librosa
+onnxruntime

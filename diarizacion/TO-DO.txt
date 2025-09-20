@@ -1,4 +1,0 @@
-@CarlosBasallote 
-Añade en el directorio "diarizacion" tu parte de pyanote.
-La idea es que cada parte subtitulación / diarización esté en una carpeta.
-Y desde el main de la raiz, importar los archivos como librerías (ejemplo subtitulación).

@@ -7,7 +7,7 @@ def transcribir_audio_a_srt(ruta_audio):
     """
     # whisper_models = ["tiny", "base", "small", "medium", "large"]
     print("Cargando modelo Whisper...")
-    modelo = whisper.load_model("medium")
+    modelo = whisper.load_model("medium", "cpu")
 
     print("Transcribiendo audio...")
     resultado = modelo.transcribe(
@@ -17,10 +17,8 @@ def transcribir_audio_a_srt(ruta_audio):
         verbose=True,
         condition_on_previous_text=True,
         temperature=0.0,
-        best_of=5,
-        initial_prompt="este audio menciona la frase hecha en español 'en fin Serafín'"
+        best_of=5
     )
-
     ruta_srt = ruta_audio.replace(".wav", ".srt")
     with open(ruta_srt, "w", encoding="utf-8") as archivo_srt:
         for i, segmento in enumerate(resultado["segments"]):
