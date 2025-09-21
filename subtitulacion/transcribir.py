@@ -1,5 +1,6 @@
 import whisper
 from subtitulacion.utilidades import formato_srt
+from pathlib import Path
 
 def transcribir_audio_a_srt(ruta_audio):
     """
@@ -7,19 +8,22 @@ def transcribir_audio_a_srt(ruta_audio):
     """
     # whisper_models = ["tiny", "base", "small", "medium", "large"]
     print("Cargando modelo Whisper...")
-    modelo = whisper.load_model("medium", "cpu")
+    modelo = whisper.load_model("large", "cpu")
 
     print("Transcribiendo audio...")
     resultado = modelo.transcribe(
         ruta_audio,
         language="es",
-        fp16=False, 
+        fp16=False,
         verbose=True,
-        condition_on_previous_text=True,
-        temperature=0.0,
-        best_of=5
+        condition_on_previous_text=False,
+        temperature=0,
+        no_speech_threshold=0.9,           # ← más agresivo detectando silencio
+        logprob_threshold=-0.5            # ← descarta hipótesis flojas
     )
-    ruta_srt = ruta_audio.replace(".wav", ".srt")
+    out_dir = Path(ruta_audio).parent.parent / "outdir"
+    out_dir.mkdir(exist_ok=True)
+    ruta_srt = out_dir/ (Path(ruta_audio).stem + "_es.srt")
     with open(ruta_srt, "w", encoding="utf-8") as archivo_srt:
         for i, segmento in enumerate(resultado["segments"]):
             inicio = formato_srt(segmento["start"])

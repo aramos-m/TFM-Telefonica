@@ -11,3 +11,5 @@ scikit-learn
 mediapipe
 librosa
 onnxruntime
+transformers
+sentencepiece

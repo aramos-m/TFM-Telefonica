@@ -99,10 +99,9 @@ def generate_face_detections(video_path):
     MIN_SAMPLES = 3
     DET_SIZE = (640, 640)
 
-    out_dir = Path(video_path).parent / "output"
-    out_dir.mkdir(exist_ok=True)
-    detections_csv = out_dir / f"{Path(video_path).resolve()}_faces_detections.csv"
-
+    out_dir = Path(video_path).parent.parent / "outdir"
+    detections_csv = out_dir / (Path(video_path).stem + "_faces_detections.csv")
+    print(detections_csv)
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
         raise SystemExit(f"No se pudo abrir el vídeo: {video_path}")
