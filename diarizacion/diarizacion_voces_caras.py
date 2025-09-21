@@ -162,9 +162,8 @@ def detect_talking_faces(video_path, detections_csv, out_dir):
     USE_AUDIO_GATE = True
     AUDIO_GATE_PCTL = 60
 
-    csv_talking   = out_dir / f"{Path(video_path).resolve()}_talking_faces.csv"
-    srt_out       = out_dir / f"{Path(video_path).resolve()}_talking_faces.srt"
-
+    csv_talking   = out_dir / (Path(video_path).stem + "_talking_faces.csv")
+    srt_out       = out_dir / (Path(video_path).stem + "_talking_faces.srt")
     # --- cargar detecciones ---
     df = pd.read_csv(detections_csv)
     print("CARGANDO DETECCIONES DE CARAS")
