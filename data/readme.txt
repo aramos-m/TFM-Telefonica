@@ -1,0 +1,1 @@
+En esta carpeta se almacenaras los inputs y outputs
