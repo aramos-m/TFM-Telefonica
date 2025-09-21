@@ -5,6 +5,7 @@ from subtitulacion.transcribir import transcribir_audio_a_srt
 from diarizacion.diarizacion_voces_caras import generate_face_detections
 from traduccion.traduccion import translate_srt_to
 from union.srt_union import merge_and_diarize_from_video
+
 def procesar_directorio(directorio):
     directorio = Path(directorio).resolve()
     archivos_mp4 = list(Path(directorio).glob("*.mp4"))
@@ -19,8 +20,6 @@ def procesar_directorio(directorio):
     return True  # Se procesaron archivos
 
 if __name__ == "__main__":
-    os.environ["ORT_LOG_LEVEL"] = "ERROR"            # alternativa 1
-    os.environ["ORT_LOG_SEVERITY_LEVEL"] = "3" 
     ruta = "./data"
     if os.path.isdir(ruta):
         hay_mp4 = procesar_directorio(ruta)
