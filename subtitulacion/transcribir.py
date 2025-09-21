@@ -18,8 +18,8 @@ def transcribir_audio_a_srt(ruta_audio):
         verbose=True,
         condition_on_previous_text=False,
         temperature=0,
-        no_speech_threshold=0.9,           # ← más agresivo detectando silencio
-        logprob_threshold=-0.5            # ← descarta hipótesis flojas
+        no_speech_threshold=0.9,           # más agresivo detectando silencio
+        logprob_threshold=-0.5            # descarta hipótesis flojas
     )
     out_dir = Path(ruta_audio).parent.parent / "outdir"
     out_dir.mkdir(exist_ok=True)
