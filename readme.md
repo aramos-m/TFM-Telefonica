@@ -1,4 +1,15 @@
-# TFM – Subtitulación, Traducción y Diarización de Vídeos  
+<table width="100%">
+<tr>
+<td align="left">
+  <img src=".images/logo-ucm.png" alt="Universidad Complutense de Madrid" height="120"/>
+</td>
+<td align="right">
+  <img src=".images/logoletrasdigitales.jpg" alt="Máster Letras Digitales" height="120"/>
+</td>
+</tr>
+</table>
+
+# Sistema integral de accesibilidad audiovisual basado en IA  
 
 Este proyecto procesa vídeos en formato `.mp4` para:  
 - Extraer y transcribir el audio con **Whisper**.  
@@ -73,7 +84,11 @@ Actualmente se soporta traducción automática desde español a:
 - **en** (inglés, por defecto)  
 - de, fr, it, pt, nl, sv, da, cs, pl, uk, el, he, tr, ro, zh-hans, ar, ru, ja, ko  
 
+<<<<<<< HEAD
 > Para cambiar el idioma destino, modifica el parámetro `lang_target` en la función [`translate_srt_to`](traduccion/traduccion.py).  
+=======
+> Para cambiar el idioma destino, modifica el primer parámetro en la función [`translate_srt_to`] en el archivo (main.py).  
+>>>>>>> e6f1c18 (Edited readme.md to add images)
 
 ---
 
