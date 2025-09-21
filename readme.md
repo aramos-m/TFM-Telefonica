@@ -84,11 +84,8 @@ Actualmente se soporta traducción automática desde español a:
 - **en** (inglés, por defecto)  
 - de, fr, it, pt, nl, sv, da, cs, pl, uk, el, he, tr, ro, zh-hans, ar, ru, ja, ko  
 
-<<<<<<< HEAD
-> Para cambiar el idioma destino, modifica el parámetro `lang_target` en la función [`translate_srt_to`](traduccion/traduccion.py).  
-=======
-> Para cambiar el idioma destino, modifica el primer parámetro en la función [`translate_srt_to`] en el archivo (main.py).  
->>>>>>> e6f1c18 (Edited readme.md to add images)
+Para cambiar el idioma destino, modifica el primer parámetro en la función [`translate_srt_to`](main.py).  
+
 
 ---
 
