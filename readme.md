@@ -66,23 +66,21 @@ El pipeline automático hará lo siguiente para cada vídeo en `data/`:
 2. Transcribir el audio a subtítulos en español (`*_es.srt`).  
 3. Detectar caras y segmentos de habla (`*_faces_detections.csv`, `*_talking_faces.srt`).  
 4. Traducir los subtítulos al inglés (`*_en.srt`).  
-5. Fusionar subtítulos español+inglés y asignar hablantes (`*_esen_diarizado.srt`).  
-
----
+5. Fusionar subtítulos español+inglés y asignar hablantes (`*_esen_diarizado.srt`). 
 
 ## 📂 Resultados
 
 Los archivos resultantes se guardan en el directorio `outdir/`. Para cada vídeo procesado, obtendrás:
 
-| Archivo | Contenido |
-| :--- | :--- |
-| `*_es.srt` | Transcripción original en español. |
-| `*_en.srt` | Traducción al inglés (o idioma seleccionado). |
-| `*_talking_faces.srt` | Segmentos de tiempo con caras hablando detectadas. |
-| `*_faces_detections.csv` | Datos técnicos de detección facial y embeddings. |
-| **`*_esen_diarizado.srt`** | **Archivo Final:** Subtítulos bilingües con identificación de hablante (e.g., `SPEAKER_1`). |
-
----
+```bash
+outdir/
+├── ejemplo1_es.srt              # subtítulos en español
+├── ejemplo1_en.srt              # traducción al inglés
+├── ejemplo1_esen.srt            # subtítulos duales (ES+EN)
+├── ejemplo1_esen_diarizado.srt  # subtítulos duales con hablantes
+├── ejemplo1_faces_detections.csv
+├── ejemplo1_talking_faces.srt
+```
 
 ## 🌍 Idiomas Soportados
 
