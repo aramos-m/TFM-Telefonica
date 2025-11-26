@@ -1,29 +1,10 @@
-<table width="100%">
-<tr>
-<td align="left" valign="middle">
-  <a href="https://www.ucm.es/">
-    <img src=".images/logo-ucm.png" alt="Universidad Complutense de Madrid" height="80"/>
-  </a>
-  &nbsp;&nbsp;&nbsp;
-  <a href="https://www.unir.net/">
-    <img src="https://www.unir.net/wp-content/uploads/2019/11/Unir_2021_logo.jpg" alt="UNIR" height="80"/>
-  </a>
-</td>
-<td align="right" valign="middle">
-  <a href="https://www.telefonica.com/">
-    <img src=".images/logo-telefonica.png" alt="Telefónica" height="80"/>
-  </a>
-</td>
-</tr>
-</table>
-
-# Sistema Integral de Accesibilidad Audiovisual basado en IA
+<p align="center">
+  <img src=".images/banner-tfm.png" alt="Banner TFM Sistema Integral de Accesibilidad" width="100%">
+</p>
 
 Este repositorio contiene el código fuente del proyecto desarrollado como **Trabajo de Fin de Máster (TFM)** conjunto, en el marco del **Programa Tutoría de Telefónica**.
 
 El proyecto es el resultado de la colaboración académica entre estudiantes del **Máster en Letras Digitales** de la Universidad Complutense de Madrid (UCM) y el **Máster en Inteligencia Artificial** de la Universidad Internacional de La Rioja (UNIR).
-
----
 
 ## 📄 Descripción del Proyecto
 
@@ -33,8 +14,6 @@ Este sistema implementa un pipeline automatizado diseñado para mejorar la acces
 2.  **Diarización visual de hablantes**: Identificación de *quién* habla basándose en reconocimiento facial y sincronización labial (*lip-sync*), no solo en la voz.
 3.  **Traducción automática neuronal** a múltiples idiomas.
 4.  **Fusión multimodal**: Generación de archivos de subtítulos duales y etiquetados por hablante.
-
----
 
 ## 🛠️ Arquitectura Técnica
 
@@ -47,8 +26,6 @@ El sistema integra múltiples modelos de Inteligencia Artificial para procesar a
     * Sincronización labial (*Active Speaker Detection*) usando **MediaPipe** para asociar el audio al rostro correcto en pantalla.
 * [cite_start]**Traducción Neuronal en Cascada:** Implementa modelos **MarianMT** (Helsinki-NLP) para traducir subtítulos del español al inglés y, posteriormente, a una variedad de idiomas destino.
 * **Fusión Multimodal:** Genera archivos `.srt` duales (idioma original + traducción) con identificación de hablantes (`SPEAKER_X`) basada en la detección visual.
-
----
 
 ## 📦 Requisitos e Instalación
 
@@ -126,4 +103,4 @@ Para cambiar el idioma destino, modifica el primer parámetro en la función [`t
 
 ---
 
-© 2024 - TFM Máster Letras Digitales (UCM) & Máster IA (UNIR) - Programa Tutoría Telefónica.
+© 2025 - TFM Máster Letras Digitales (UCM) & Máster IA (UNIR) - Programa Tutoría Telefónica.
