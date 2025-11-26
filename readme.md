@@ -1,57 +1,94 @@
 <table width="100%">
 <tr>
-<td align="left">
-  <img src=".images/logo-ucm.png" alt="Universidad Complutense de Madrid" height="120"/>
+<td align="left" valign="middle">
+  <a href="https://www.ucm.es/">
+    <img src=".images/logo-ucm.png" alt="Universidad Complutense de Madrid" height="80"/>
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://www.unir.net/">
+    <img src="https://www.unir.net/wp-content/uploads/2019/11/Unir_2021_logo.jpg" alt="UNIR" height="80"/>
+  </a>
 </td>
-<td align="right">
-  <img src=".images/logoletrasdigitales.jpg" alt="Máster Letras Digitales" height="120"/>
+<td align="right" valign="middle">
+  <a href="https://www.telefonica.com/">
+    <img src=".images/logo-telefonica.png" alt="Telefónica" height="80"/>
+  </a>
 </td>
 </tr>
 </table>
 
-# Sistema integral de accesibilidad audiovisual basado en IA  
+# Sistema Integral de Accesibilidad Audiovisual basado en IA
 
-Este proyecto procesa vídeos en formato `.mp4` para:  
-- Extraer y transcribir el audio con **Whisper**.  
-- Detectar caras y segmentos de habla sincronizados.  
-- Traduce automáticamente los subtítulos al inglés (y otros idiomas soportados).  
-- Generar subtítulos duales (español + traducción) con **diarización por hablante**.  
+Este repositorio contiene el código fuente del proyecto desarrollado como **Trabajo de Fin de Máster (TFM)** conjunto, en el marco del **Programa Tutoría de Telefónica**.
 
-Los subtítulos finales se guardan en la carpeta `outdir`.  
+El proyecto es el resultado de la colaboración académica entre estudiantes del **Máster en Letras Digitales** de la Universidad Complutense de Madrid (UCM) y el **Máster en Inteligencia Artificial** de la Universidad Internacional de La Rioja (UNIR).
 
 ---
 
-## 📦 Instalación
+## 📄 Descripción del Proyecto
 
-Clona el repositorio y asegúrate de tener **Python 3.9+**:  
+Este sistema implementa un pipeline automatizado diseñado para mejorar la accesibilidad de contenidos audiovisuales mediante el uso de Inteligencia Artificial Generativa y Visión Artificial. El software procesa vídeos (`.mp4`) para generar subtítulos enriquecidos que incluyen:
+
+1.  **Transcripción automática** del habla (Speech-to-Text).
+2.  **Diarización visual de hablantes**: Identificación de *quién* habla basándose en reconocimiento facial y sincronización labial (*lip-sync*), no solo en la voz.
+3.  **Traducción automática neuronal** a múltiples idiomas.
+4.  **Fusión multimodal**: Generación de archivos de subtítulos duales y etiquetados por hablante.
+
+---
+
+## 🛠️ Arquitectura Técnica
+
+El sistema integra múltiples modelos de Inteligencia Artificial para procesar archivos `.mp4` de forma automática:
+
+* **Transcripción de Alta Precisión:** Utiliza **OpenAI Whisper (Large)** para convertir audio a texto en español con marcas de tiempo precisas.
+* **Diarización Visual (Talking Face Detection):**
+    * Detección y *embedding* de rostros mediante **InsightFace**.
+    * Clustering de identidades con **DBSCAN**.
+    * Sincronización labial (*Active Speaker Detection*) usando **MediaPipe** para asociar el audio al rostro correcto en pantalla.
+* [cite_start]**Traducción Neuronal en Cascada:** Implementa modelos **MarianMT** (Helsinki-NLP) para traducir subtítulos del español al inglés y, posteriormente, a una variedad de idiomas destino.
+* **Fusión Multimodal:** Genera archivos `.srt` duales (idioma original + traducción) con identificación de hablantes (`SPEAKER_X`) basada en la detección visual.
+
+---
+
+## 📦 Requisitos e Instalación
+
+Este proyecto ha sido optimizado para ejecutarse en entornos con recursos limitados (**CPU**), democratizando el acceso a herramientas de accesibilidad sin necesidad de GPUs dedicadas de alto rendimiento.
+
+### Prerrequisitos
+*   **Python 3.9+**
+*   **FFmpeg** instalado en el sistema.
+*   Se recomienda un mínimo de **8 GB de RAM** (16 GB recomendados para el modelo Large de Whisper).
+
+### Instalación
+Clona el repositorio e instala las dependencias necesarias:
 
 ```bash
-git clone https://github.com/aramos-m/TFM-Telefonica.git
+git clone [https://github.com/aramos-m/TFM-Telefonica.git](https://github.com/aramos-m/TFM-Telefonica.git)
 cd TFM-Telefonica
+
+# Se recomienda crear un entorno virtual
+python3 -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+
+# Instalación de librerías (Torch CPU por defecto)
 pip3 install -r requirements.txt
 ```
-
 ---
 
-## 📂 Preparación de datos
+## ⏯️ Ejecución
 
-Coloca en la carpeta `data` los vídeos en formato **`.mp4`** que quieras procesar:  
+1.  **Preparación de datos:**
+    Coloca los vídeos `.mp4` que deseas procesar en la carpeta `data/`.
+    ```text
+    ├── data/
+    │   ├── ejemplo1.mp4
+    │   └── ejemplo2.mp4
+    ```
 
-```
-├── data/
-│   ├── ejemplo1.mp4
-│   └── ejemplo2.mp4
-```
-
----
-
-## ▶️ Ejecución
-
-Lanza el script principal desde una terminal:  
-
-```bash
-python3 main.py
-```
+2.  **Ejecutar el pipeline:**
+    ```bash
+    python main.py
+    ```
 
 El pipeline automático hará lo siguiente para cada vídeo en `data/`:  
 1. Convertir `.mp4` → `.wav`.  
@@ -62,41 +99,31 @@ El pipeline automático hará lo siguiente para cada vídeo en `data/`:
 
 ---
 
-## 📁 Resultados
+## 📂 Resultados
 
-Los archivos generados se guardan en `outdir/`, por ejemplo:  
+Los archivos resultantes se guardan en el directorio `outdir/`. Para cada vídeo procesado, obtendrás:
 
-```
-outdir/
-├── ejemplo1_es.srt              # subtítulos en español
-├── ejemplo1_en.srt              # traducción al inglés
-├── ejemplo1_esen.srt            # subtítulos duales (ES+EN)
-├── ejemplo1_esen_diarizado.srt  # subtítulos duales con hablantes
-├── ejemplo1_faces_detections.csv
-├── ejemplo1_talking_faces.srt
-```
+| Archivo | Contenido |
+| :--- | :--- |
+| `*_es.srt` | Transcripción original en español. |
+| `*_en.srt` | Traducción al inglés (o idioma seleccionado). |
+| `*_talking_faces.srt` | Segmentos de tiempo con caras hablando detectadas. |
+| `*_faces_detections.csv` | Datos técnicos de detección facial y embeddings. |
+| **`*_esen_diarizado.srt`** | **Archivo Final:** Subtítulos bilingües con identificación de hablante (e.g., `SPEAKER_1`). |
 
 ---
 
-## 🌍 Idiomas soportados
+## 🌍 Idiomas Soportados
 
-Actualmente se soporta traducción automática desde español a:  
-- **en** (inglés, por defecto)  
-- de, fr, it, pt, nl, sv, da, cs, pl, uk, el, he, tr, ro, zh-hans, ar, ru, ja, ko  
+El módulo de traducción utiliza **MarianMT** y soporta la traducción desde Español a una amplia variedad de idiomas, incluyendo:
 
-Para cambiar el idioma destino, modifica el primer parámetro en la función [`translate_srt_to`](main.py).  
+*   **Inglés (en)** - *Por defecto*
+*   Francés (fr), Alemán (de), Italiano (it), Portugués (pt)
+*   Chino (zh-hans), Japonés (ja), Árabe (ar), Ruso (ru)
+*   Y otros idiomas europeos (nl, sv, da, cs, pl, uk, el, tr, ro).
 
+Para cambiar el idioma destino, modifica el primer parámetro en la función [`translate_srt_to`](main.py).
 
 ---
 
-
-
-## ⚙️ Nota sobre recursos y rendimiento
-
-Este proyecto está optimizado para equipos con VRAM limitada, permitiendo ejecutar el modelo Whisper-large usando CPU en lugar de GPU.
-
-- La ejecución en CPU implica una velocidad de procesamiento menor, pero garantiza compatibilidad en ordenadores sin GPU potente.
-
-- El rendimiento depende fuertemente de la memoria RAM disponible: se recomienda un mínimo de 8 GB.
-
-- En equipos con solo 8 GB de RAM, es aconsejable cerrar otros procesos pesados durante la ejecución para evitar errores por falta de memoria.
+© 2024 - TFM Máster Letras Digitales (UCM) & Máster IA (UNIR) - Programa Tutoría Telefónica.
