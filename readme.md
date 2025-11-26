@@ -2,30 +2,25 @@
   <img src=".images/banner-tfm.png" alt="Banner TFM Sistema Integral de Accesibilidad" width="100%">
 </p>
 
-Este repositorio contiene el código fuente del proyecto desarrollado como **Trabajo de Fin de Máster (TFM)** conjunto, en el marco del **Programa Tutoría de Telefónica**.
+# Sistema Integral de Accesibilidad Audiovisual basado en IA
 
-El proyecto es el resultado de la colaboración académica entre estudiantes del **Máster en Letras Digitales** de la Universidad Complutense de Madrid (UCM) y el **Máster en Inteligencia Artificial** de la Universidad Internacional de La Rioja (UNIR).
+Este repositorio contiene el código fuente del Proyecto de Fin de Máster desarrollado en el marco del Programa Tutoría de Telefónica por estudiantes del **Máster en Letras Digitales** de la Universidad Complutense de Madrid (UCM) y el **Máster en Inteligencia Artificial** de la Universidad Internacional de La Rioja (UNIR).
 
-## 📄 Descripción del Proyecto
-
-Este sistema implementa un pipeline automatizado diseñado para mejorar la accesibilidad de contenidos audiovisuales mediante el uso de Inteligencia Artificial Generativa y Visión Artificial. El software procesa vídeos (`.mp4`) para generar subtítulos enriquecidos que incluyen:
+El sistema implementa un pipeline automatizado diseñado para mejorar la accesibilidad de contenidos audiovisuales mediante el uso de Inteligencia Artificial Generativa y Visión Artificial. El software procesa vídeos para generar subtítulos enriquecidos que incluyen:
 
 1.  **Transcripción automática** del habla (Speech-to-Text).
 2.  **Diarización visual de hablantes**: Identificación de *quién* habla basándose en reconocimiento facial y sincronización labial (*lip-sync*), no solo en la voz.
 3.  **Traducción automática neuronal** a múltiples idiomas.
 4.  **Fusión multimodal**: Generación de archivos de subtítulos duales y etiquetados por hablante.
 
-## 🛠️ Arquitectura Técnica
+## 🛠️ Arquitectura
 
-El sistema integra múltiples modelos de Inteligencia Artificial para procesar archivos `.mp4` de forma automática:
+El sistema procesa archivos `.mp4` a través de las siguientes etapas secuenciales:
 
-* **Transcripción de Alta Precisión:** Utiliza **OpenAI Whisper (Large)** para convertir audio a texto en español con marcas de tiempo precisas.
-* **Diarización Visual (Talking Face Detection):**
-    * Detección y *embedding* de rostros mediante **InsightFace**.
-    * Clustering de identidades con **DBSCAN**.
-    * Sincronización labial (*Active Speaker Detection*) usando **MediaPipe** para asociar el audio al rostro correcto en pantalla.
-* [cite_start]**Traducción Neuronal en Cascada:** Implementa modelos **MarianMT** (Helsinki-NLP) para traducir subtítulos del español al inglés y, posteriormente, a una variedad de idiomas destino.
-* **Fusión Multimodal:** Genera archivos `.srt` duales (idioma original + traducción) con identificación de hablantes (`SPEAKER_X`) basada en la detección visual.
+1.  **Audio Processing:** Extracción y transcripción (`Whisper`).
+2.  **Face Analysis:** Detección (`InsightFace`) + Clustering (`DBSCAN`) + Detección de Hablante Activo.
+3.  **NLP Pipeline:** Traducción neuronal (`Helsinki-NLP`).
+4.  **Multimodal Fusion:** Sincronización de texto, identidad visual y tiempos.
 
 ## 📦 Requisitos e Instalación
 
@@ -50,7 +45,6 @@ source venv/bin/activate  # En Windows: venv\Scripts\activate
 # Instalación de librerías (Torch CPU por defecto)
 pip3 install -r requirements.txt
 ```
----
 
 ## ⏯️ Ejecución
 
@@ -94,10 +88,15 @@ Los archivos resultantes se guardan en el directorio `outdir/`. Para cada vídeo
 
 El módulo de traducción utiliza **MarianMT** y soporta la traducción desde Español a una amplia variedad de idiomas, incluyendo:
 
-*   **Inglés (en)** - *Por defecto*
-*   Francés (fr), Alemán (de), Italiano (it), Portugués (pt)
-*   Chino (zh-hans), Japonés (ja), Árabe (ar), Ruso (ru)
-*   Y otros idiomas europeos (nl, sv, da, cs, pl, uk, el, tr, ro).
+| Europa Occ. / Norte | Código | Europa Or. / Otros | Código | Asia / Oriente Medio | Código |
+| :--- | :---: | :--- | :---: | :--- | :---: |
+| 🇩🇪 Alemán | `de` | 🇵🇱 Polaco | `pl` | 🇨🇳 Chino (Simp.) | `zh-hans`|
+| 🇫🇷 Francés | `fr` | 🇺🇦 Ucraniano | `uk` | 🇯🇵 Japonés | `ja` |
+| 🇮🇹 Italiano | `it` | 🇨🇿 Checo | `cs` | 🇰🇷 Coreano | `ko` |
+| 🇵🇹 Portugués | `pt` | 🇷🇴 Rumano | `ro` | 🇷🇺 Ruso | `ru` |
+| 🇳🇱 Holandés | `nl` | 🇬🇷 Griego | `el` | 🇸🇦 Árabe | `ar` |
+| 🇸🇪 Sueco | `sv` | 🇹🇷 Turco | `tr` | 🇮🇱 Hebreo | `he` |
+| 🇩🇰 Danés | `da` | | | | |
 
 Para cambiar el idioma destino, modifica el primer parámetro en la función [`translate_srt_to`](main.py).
 
